@@ -305,6 +305,7 @@ alias ss='sqlplus / as sysdba'
 ```
 
 ## 이제 노드2 설정
+```
 노드1 파일 복사 후 복사한 파일 이름 변경
 oel19db1 --> oel19db2
 
@@ -316,6 +317,7 @@ Options 에서 Virtual machine name을 oel19db1에서 oel19db2로 변경
 
 노드2를 root계정으로 로그인 후
 IP 변경
+```
 ```
 ens32
 - vi /etc/sysconfig/network-scripts/ifcfg-ens32
