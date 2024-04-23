@@ -30,9 +30,9 @@
 ```
 
 ## Network 설정(GUI 기준)
-
-![image](https://github.com/jinho-22/oracle-19c-rac-/assets/129517591/f79ba067-095a-421a-91a5-010ee12255c0)
 설정 버튼 클릭 후
+![image](https://github.com/jinho-22/oracle-19c-rac-/assets/129517591/f79ba067-095a-421a-91a5-010ee12255c0)
+
 
 ![image](https://github.com/jinho-22/oracle-19c-rac-/assets/129517591/8ab49bb1-db74-4d12-9a66-1ca5c91fe24c)
 ens32와 ens34 변경
