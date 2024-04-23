@@ -17,7 +17,7 @@ OPatch : p6880880_190000_Linux-x86-64.zip(12.2.0.1.41)
 RU : p35943157_190000_Linux-x86-64.zip
 ```
 
-
+## 디스크 설정
 ```
 Oracle Enterprise Linux 8.4.vmx 메모장으로 열어서 내용추가
 
@@ -25,7 +25,6 @@ disk.locking = "FALSE"
 diskLib.dataCacheMaxSize = "0"
 scsi1.sharedBus = "virtual"
 scsi1:0.deviceType = "disk"
-디스크 설정
 ```
 
 ## OS 설정
