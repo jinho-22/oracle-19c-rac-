@@ -527,9 +527,8 @@ OCR_VOTE와 DATA 디스크 그룹이 존재하는것을 확인 후 Exit
 
 응용프로그램을 종료하겠냐고 물어보면 yes
 ```
-
-## asmca 후 다시 점검
 ```
+asmca 후 다시 점검
 - crsctl stat res -t
 
 정상적으로 ora.DATA.dg가 생성되었나 확인
