@@ -38,16 +38,14 @@
 ens32와 ens34 변경
 
 ### ens32
-```
 IPv4로 이동
 
 Address를 192.168.137.10으로 변경 후 Apply
-```
+
 
 ### ens34
-```
 Connect automatically, Make available to other users 선택 후 IPv4 선택
 
 Manual 선택 후 Address/Netmask를 10.10.10.10/24 설정 후 Apply
-```
+
 
