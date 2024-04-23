@@ -175,3 +175,130 @@ tmpfs                   /dev/shm                 tmpfs   size=7g         0 0
 
 - fdisk -l
 ```
+
+```
+Pv Lv 파티 생성
+
+pvcreate /dev/sdb1
+vgcreate 19c /dev/sdb1
+lvcreate -L 2g -n OCR_VOTE1 19c
+lvcreate -L 2g -n OCR_VOTE2 19c
+lvcreate -L 2g -n OCR_VOTE3 19c
+lvcreate -L 20G -n DATA 19c
+```
+
+```
+Oracle ASM 설정 및 시작
+- oracleasm configure -i
+
+Configuring the Oracle ASM library driver.
+ 
+This will configure the on-boot properties of the Oracle ASM library
+driver.  The following questions will determine whether the driver is
+loaded on boot and what permissions it will have.  The current values
+will be shown in brackets ('[]').  Hitting <ENTER> without typing an
+answer will keep that current value.  Ctrl-C will abort.
+ 
+Default user to own the driver interface []: oracle <-- oracle 입력
+Default group to own the driver interface []: dba  <-- dba 입력
+Start Oracle ASM library driver on boot (y/n) [n]: y <-- y 입력
+Scan for Oracle ASM disks on boot (y/n) [y]: y <-- y 입력
+Writing Oracle ASM library driver configuration: done
+```
+
+```
+아래 명령시 /dev/oracleasm 디렉토리가 만들어지고, oracleasm/disks에 라벨링된 디스크가 저장됨
+- oracleasm init
+```
+
+```
+상태 확인
+oracleasm status
+
+Checking if ASM is loaded: yes
+Checking if /dev/oracleasm is mounted: yes
+ 
+# oracleasm configure
+ORACLEASM_ENABLED=true
+ORACLEASM_UID=oracle
+ORACLEASM_GID=dba
+ORACLEASM_SCANBOOT=true
+ORACLEASM_SCANORDER=""
+ORACLEASM_SCANEXCLUDE=""
+ORACLEASM_SCAN_DIRECTORIES=""
+ORACLEASM_USE_LOGICAL_BLOCK_SIZE="false"
+```
+
+```
+공유 디스크 생성
+
+- oracleasm createdisk OCR_VOTE1 /dev/19c/OCR_VOTE1
+- oracleasm createdisk OCR_VOTE2 /dev/19c/OCR_VOTE2
+- oracleasm createdisk OCR_VOTE3 /dev/19c/OCR_VOTE3
+- oracleasm createdisk DATA01 /dev/19c/DATA
+```
+
+```
+디스크 스캔 후 생성 리스트 확인
+- oracleasm scandisks
+
+- oracleasm listdisks
+DATA01
+OCR_VOTE1
+OCR_VOTE2
+OCR_VOTE3
+4개가 나옴
+```
+
+```
+디렉토리 생성 및 권한부여
+
+- mkdir -p /oracle/media
+- mkdir -p /oracle/app/oracle/product/19c
+- mkdir -p /oracle/app/grid/19c
+- mkdir -p /oracle/oraInventory
+- mkdir -p /oraarch
+- chown -R oracle:dba /oracle
+- chmod -R 775 /oracle
+- chown -R oracle:dba /oraarch
+- chmod -R 775 /oraarch
+- chown -R oracle:dba /dev/oracleasm
+- chown -R oracle:dba /dev/19c
+```
+
+```
+/oracle/media 경로에 설치파일 업로드
+
+GRID
+DB
+OPatch
+RU
+파일을 업로드 후
+- chown -R oracle:dba /oracle/media/
+입력 
+```
+
+```
+oracle 계정으로 변경 후
+bash_profile에 내용 추가
+- vi .bash_profile
+
+export ORACLE_BASE=/oracle/app/oracle;
+export ORACLE_HOME=$ORACLE_BASE/product/19c;
+export ORACLE_SID=ORADB1;
+export GRID_HOME=/oracle/app/grid/19c;
+export GRID_SID=+ASM1;
+export PATH=$ORACLE_HOME/bin:$GRID_HOME/bin:$PATH
+export LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib;
+export CLASSPATH=$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib;
+export DISPLAY=192.168.137.1:0.0;
+ 
+alias grid='export ORACLE_HOME=$GRID_HOME; export ORACLE_SID=$GRID_SID; export PATH=$ORACLE_HOME/bin:$GRID_HOME/bin:$PATH; echo $ORACLE_SID; echo $ORACLE_HOME'
+alias db='. ~oracle/.bash_profile;export PATH=$ORACLE_HOME/bin:$GRID_HOME/bin:$PATH; echo $ORACLE_SID;echo $ORACLE_HOME'
+alias oh='cd $ORACLE_HOME;pwd'
+alias ss='sqlplus / as sysdba'
+
+. ./.bash_profile
+적용 
+```
+
