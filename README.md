@@ -502,3 +502,56 @@ Next
 Close 선택
 ```
 
+
+## GRID 설치 후 점검 및 패치정보 확인
+```
+정상적으로 설치되었는지 패치정보와 확인
+- crsctl stat res -t
+- ocrcheck
+- $GRID_HOME/OPatch/opatch lspatches -oh $GRID_HOME
+```
+
+## asmca 디스크 추가
+```
+- asmca
+
+Disk Groups 선택
+
+하단에 Create 선택
+
+Disk Group Name 에 DATA 입력 후 External 선택 후 DATA 디스크 선택
+
+OCR_VOTE와 DATA 디스크 그룹이 존재하는것을 확인 후 Exit
+
+응용프로그램을 종료하겠냐고 물어보면 yes
+```
+
+## asmca 후 다시 점검
+```
+- crsctl stat res -t
+
+정상적으로 ora.DATA.dg가 생성되었나 확인
+```
+
+
+## DB 소프트웨어(엔진) 설치
+```
+DB 설치 미디어 압축 해제
+
+- cd $ORACLE_HOME
+- unzip /oracle/media/LINUX.X64_193000_db_home.zip
+
+
+OPatch 파일 최신파일로 교체 후 버전 확인
+
+- cd $ORACLE_HOME
+- mv OPatch/ OPatchold
+- unzip /oracle/media/p6880880_190000_Linux-x86-64.zip
+- $ORACLE_HOME/OPatch/opatch version -oh $ORACLE_HOME
+
+runinstaller 실행
+- cd $ORACLE_HOME
+./runInstaller -applyRU /oracle/media/35943157
+
+gui로딩
+```
