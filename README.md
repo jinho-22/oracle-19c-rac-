@@ -11,10 +11,12 @@
 
 
 ```
-- disk.locking = "FALSE"
-- diskLib.dataCacheMaxSize = "0"
-- scsi1.sharedBus = "virtual"
-- scsi1:0.deviceType = "disk"
+Oracle Enterprise Linux 8.4.vmx 메모장으로 열어서 내용추가
+
+disk.locking = "FALSE"
+diskLib.dataCacheMaxSize = "0"
+scsi1.sharedBus = "virtual"
+scsi1:0.deviceType = "disk"
 디스크 설정
 ```
 
