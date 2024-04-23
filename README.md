@@ -612,5 +612,44 @@ componets 선택 후 Next
 ![image](https://github.com/jinho-22/oracle-19c-rac-/assets/129517591/6aedd4ee-47b5-4160-90ea-0356f00f0712)
 
 메모리 설정
+SGA size : 2400MB
+PGA size : 800MB
 
+Character sets 에서
+Choose from the list of chracter sets 선택
+KO16MSWIN949 선택
+
+Connection mode에서
+Ddedicated server mode 선택 후 Next
+
+모두 체크 해제 후 Next
+![image](https://github.com/jinho-22/oracle-19c-rac-/assets/129517591/905235de-c7ba-4246-a432-d4f30e119c9d)
+
+
+패스워드 입력 후 Next
+
+[DBT-06208] The 'Admin' password entered does not conform to the Oracle recommended standards.
+라고 뜨면 비밀번호 재설정하거나 아니면 yes
+
+Create database 선택 후 Next
+
+SCAN 관련메세지는 SCAN IP가 DNS에 등록되어 있지 않아서 발생한 문제 모두 Ignore 체크 후 Next
+
+[DBT-17001] You have chosen to ignore some of the prerequisites for this DBCA operation. This may impact DBCA operation.
+yes
+
+![image](https://github.com/jinho-22/oracle-19c-rac-/assets/129517591/1cdff1b7-7b8d-4cb7-a807-278591a7d8b2)
+Finish
+
+설치 완료되면 Close
 ```
+
+### DB 생성 확인
+```
+- sqlplus / as sysdba
+
+SQL> select instance_name, version, status from gv$instance;
+```처
+https://positivemh.tistory.com/762
+https://positivemh.tistory.com/763
+https://positivemh.tistory.com/765
