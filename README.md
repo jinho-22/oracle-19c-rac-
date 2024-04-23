@@ -553,5 +553,64 @@ runinstaller 실행
 - cd $ORACLE_HOME
 ./runInstaller -applyRU /oracle/media/35943157
 
+패치 진행 후
 gui로딩
+
+Set Up Software Only 선택 후 Next
+
+Oracle Real Application Cluster database installation 선택 후 Next
+
+1,2 선택(SSH connectivity는 grid 설치시 진행했으므로 하지않음) 후 Next
+
+Enterprise Edition 선택 후 Next
+
+oracle base 지정 후 Next
+
+group은 모두 dba 로 지정 후 Next
+
+설치 중 root 권한으로 스크립트 실행하는 부분에서 자동로 스크립트 실행할지 여부 지정 root 패스워드 입력 후 Next
+
+SCAN 관련메세지는 SCAN IP가 DNS에 등록되어 있지 않아서 발생한 문제 모두 Ignore 체크 후 Next
+
+Install 클릭 하면 DB엔진 설치
+
+root 계정으로 스크립트 실행할 지 물어보는 메세지 Yes
+
+설치 되면 Close
+```
+
+## DB 생성
+```
+오라클 계정으로 접속 후
+
+- dbca
+gui 로딩 후
+
+Create a database 선택 후 Next
+
+Advanced configuration 선택 후 Next
+
+Database Type : RAC, configuration type : Admin Managed, Custom Database 선택 후 Next
+
+db 1, 2 선택 후 Next
+
+SID 입력
+Global database name : ORADB
+SID Prefix : ORADB
+
+Next
+
+데이터 저장영역 선택 +DATA
+![image](https://github.com/jinho-22/oracle-19c-rac-/assets/129517591/03b6d652-87ef-4388-b27d-06089c0f8769)
+
+Next
+
+FRA, 아카이브 사용하지 않음
+체크 하지않고 Next
+
+componets 선택 후 Next
+![image](https://github.com/jinho-22/oracle-19c-rac-/assets/129517591/6aedd4ee-47b5-4160-90ea-0356f00f0712)
+
+메모리 설정
+
 ```
