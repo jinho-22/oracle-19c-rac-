@@ -9,6 +9,14 @@
   Host-only 네트워크 추가
 ```
 
+## 설치 파일
+```
+GRID : LINUX.X64_193000_grid_home.zip
+DB : LINUX.X64_193000_db_home.zip
+OPatch : p6880880_190000_Linux-x86-64.zip(12.2.0.1.41)
+RU : p35943157_190000_Linux-x86-64.zip
+```
+
 
 ```
 Oracle Enterprise Linux 8.4.vmx 메모장으로 열어서 내용추가
