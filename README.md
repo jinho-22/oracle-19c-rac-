@@ -364,3 +364,141 @@ export GRID_SID=+ASM2;
 
 ```
 
+## GRID 설치
+노드1 에서 작업
+```
+GRID 압축풀기
+
+- cd $GRID_HOME
+- unzip /oracle/media/LINUX.X64_193000_grid_home.zip
+```
+
+```
+cvu rpm 설치(root 계정)
+- rpm -ivh /oracle/app/grid/19c/cv/rpm/cvuqdisk-1.0.10-1.rpm
+
+
+노드2 rpm 설치(1번 노드에서 2번에 설치)
+- rsync --progress /oracle/app/grid/19c/cv/rpm/cvuqdisk-1.0.10-1.rpm oel19db2:/root/
+```
+
+```
+OPatch 파일 최신파일로 교체 후 버전 확인
+- cd $GRID_HOME
+- mv OPatch/ OPatchold
+- unzip /oracle/media/p6880880_190000_Linux-x86-64.zip
+- $GRID_HOME/OPatch/opatch version -oh $GRID_HOME
+```
+
+```
+ssh 수동 설정
+- cd $GRID_HOME/oui/prov/resources/scripts
+- ./sshUserSetup.sh -user oracle -hosts "oel19db1 oel19db2" -noPromptPassphrase -advanced
+
+중간에 스크립트 변경 허용 후
+패스워드 입력 
+```
+
+```
+패치파일 압축해제
+
+- cd /oracle/media
+- unzip p35943157_190000_Linux-x86-64.zip
+```
+
+```
+grid 설치 및 패치
+
+- cd $GRID_HOME
+- ./gridSetup.sh -applyRU /oracle/media/35943157
+패치 진행 후
+gui로딩
+
+Configure Oracle Grid Infrastructure for a New Cluster 선택 후 Next
+
+Configure an Oracle Standalone Cluster 선택 후 Next
+
+SCAN 정보 입력
+Cluster Name : oel19db
+SCAN Name: oel19db-scan
+SCAN Port : 1521
+
+Next
+
+ADD 선택
+2번노드 정보 입력
+Public Hostname : oel19db2
+Virtual Hostname : oel19db2-vip
+
+SSH connectivity 선택, oracle 유저 패스워드 입력
+
+Test 선택(수동 설정을 하여서 setup은 스킵)
+
+![image](https://github.com/jinho-22/oracle-19c-rac-/assets/129517591/66d766c8-a6f6-461a-a5b6-62baac8f976b)
+이렇게 나오면 OK
+
+Next
+
+ens34 Use for ASM & Private로 선택 후 Next
+
+Use Oracle Flex ASM for storage 선택 후 Next
+
+No 선택 후 Next
+
+OCR_VOTE 입력 후 Normal 선택
+
+디스크가 안나올 경우 Change Discovery Path 선택
+
+Disk Discovery Path : /dev/oracleasm/disks
+Change Discovery Path 선택 후 경로 입력 후 OK
+
+/dev/oracleasm/disks/OCR_VOTE1
+/dev/oracleasm/disks/OCR_VOTE2
+/dev/oracleasm/disks/OCR_VOTE3
+disk 3개 선택 후 Next
+
+패스워드 oracle 입력 후 Next
+
+Do not use IPMI 선택 후 Next
+
+EM 체크하지 않고 Next
+
+그룹 dba로 선택 후 Next
+
+경고 메세지 yes누르고 넘어감
+
+oracle base 지정
+/oracle/app/oracle 로 지정함
+Next
+
+경고 메세지 나오면 yes
+
+oraInventory 지정
+
+/oracle/app/oraInventory 로 지정함
+
+Next
+
+설치 중 root 권한으로 스크립트 실행하는 부분에서 자동으로 스크립트 실행할지 여부 지정
+
+root 패스워드 입력
+
+Next
+
+사전 요구사항 체크 후
+
+SCAN 관련메세지는 SCAN IP가 DNS에 등록되어 있지 않아서 발생한 문제 모두 Ignore으로 설정한 후 Next
+
+Install누르면 GRID설치
+
+중간에 root계정으로 스크립트 실행할지 물어보면 yes
+
+SCAN IP가 DNS에 등록되어 있지 않아서 발생한 문제는 무시 해도된다고 함 OK
+
+Next
+
+경고 yes누르고
+
+Close 선택
+```
+
