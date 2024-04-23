@@ -50,7 +50,10 @@ Manual 선택 후 Address/Netmask를 10.10.10.10/24 설정 후 Apply
 
 
 ens32 ens34모두 off로 바꾼 후 다시 on으로 바꿔 IP변경되었나 확인
+
 터미널에서도 확인
 ```
-ifconfig
+- ifconfig
 ```
+
+~~~ yum install -y oracle-database-preinstall-19c ~~~
