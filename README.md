@@ -649,7 +649,9 @@ Finish
 - sqlplus / as sysdba
 
 SQL> select instance_name, version, status from gv$instance;
-```처
+```
+
+출처
 https://positivemh.tistory.com/762
 https://positivemh.tistory.com/763
 https://positivemh.tistory.com/765
