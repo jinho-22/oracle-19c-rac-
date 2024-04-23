@@ -120,32 +120,57 @@ SELINUX=disabled
 ```
 불필요한 서비스 정지
 
-systemctl stop firewalld
-systemctl disable firewalld
+- systemctl stop firewalld
+- systemctl disable firewalld
  
-systemctl stop bluetooth
-systemctl disable bluetooth
+- systemctl stop bluetooth
+- systemctl disable bluetooth
  
-systemctl stop chronyd
-systemctl disable chronyd
-mv /etc/chrony.conf /etc/chrony.conf.bak
+- systemctl stop chronyd
+- systemctl disable chronyd
+- mv /etc/chrony.conf /etc/chrony.conf.bak
  
-systemctl stop ntpdate
-systemctl disable ntpdate
+- systemctl stop ntpdate
+- systemctl disable ntpdate
  
-systemctl stop avahi-daemon.socket
-systemctl disable avahi-daemon.socket
+- systemctl stop avahi-daemon.socket
+- systemctl disable avahi-daemon.socket
  
-systemctl stop avahi-daemon
-systemctl disable avahi-daemon
+- systemctl stop avahi-daemon
+- systemctl disable avahi-daemon
  
-systemctl stop libvirtd
-systemctl disable libvirtd
+- systemctl stop libvirtd
+- systemctl disable libvirtd
 ```
 
 ```
 rpm 설치
 
-rpm -ivh oracleasm-support-2.1.11-2.el7.x86_64.rpm
-rpm -ivh oracleasmlib-2.0.12-1.el7.x86_64.rpm
+- rpm -ivh oracleasm-support-2.1.11-2.el7.x86_64.rpm
+- rpm -ivh oracleasmlib-2.0.12-1.el7.x86_64.rpm
+```
+
+```
+Temp 파일시스템 할당
+
+- vi /etc/fstab
+
+아래 내용 추가
+tmpfs                   /dev/shm                 tmpfs   size=7g         0 0
+
+/dev/shm 영역 remount
+- mount -o remount /dev/shm
+
+추가 후 확인
+- df -h /dev/shm
+```
+
+```
+추가한 디스크 확인
+- fdisk -l
+
+디스크 포멧 후 다시 확인
+- fdisk /dev/sdb
+
+- fdisk -l
 ```
