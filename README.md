@@ -302,4 +302,65 @@ alias ss='sqlplus / as sysdba'
 적용 
 ```
 
-## 지금까지 노드1 설정 완료
+## 이제 노드2 설정
+노드1 파일 복사 후 복사한 파일 이름 변경
+oel19db1 --> oel19db2
+
+
+Network Adapter(NAT, Host-only 모두) 선택 후 Advanced 선택
+Generate을 눌러서 MAC Address변경
+
+Options 에서 Virtual machine name을 oel19db1에서 oel19db2로 변경
+
+노드2를 root계정으로 로그인 후
+IP 변경
+```
+ens32
+- vi /etc/sysconfig/network-scripts/ifcfg-ens32
+192.138.137.10 -> 192.138.137.20
+ 
+ens34
+- vi /etc/sysconfig/network-scripts/ifcfg-ens34
+10.10.10.10 -> 10.10.10.20
+```
+
+```
+네트워크 재시작 및 확인
+- nmcli con down ens32
+- nmcli con down ens34
+- nmcli con up ens32
+- nmcli con up ens34
+- systemctl restart NetworkManager.service
+- ifconfig
+```
+
+```
+hostnamectl 명령으로 hostname 변경 oel19db1-> oel19db2 후 재기동
+
+- hostnamectl set-hostname oel19db2
+- reboot
+```
+
+```
+1번노드, 2번노드 모두 OS 기동 후 ping TEST
+
+1번 노드(2번노드의 ip로 ping 시도)
+- ping oel19db2
+- ping oel19db2-priv
+ 
+2번 노드(1번노드의 ip로 ping 시도)
+- ping oel19db1
+- ping oel19db1-priv
+```
+
+```
+2번노드 오라클 계정 설정
+
+- vi .bash_profile
+export ORACLE_SID=ORADB2;
+export GRID_SID=+ASM2;
+두가지만 변경 후 적용
+. ./.bash_profile 
+
+```
+
