@@ -651,7 +651,7 @@ Finish
 SQL> select instance_name, version, status from gv$instance;
 ```
 
-출처 : <br>
+자료 출처 : <br>
 https://positivemh.tistory.com/762 <br>
 https://positivemh.tistory.com/763 <br>
 https://positivemh.tistory.com/765 <br>
