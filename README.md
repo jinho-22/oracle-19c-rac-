@@ -302,3 +302,4 @@ alias ss='sqlplus / as sysdba'
 적용 
 ```
 
+## 지금까지 노드1 설정 완료
